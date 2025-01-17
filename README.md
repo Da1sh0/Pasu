@@ -1,2 +1,2 @@
 # Pasu
-Pasus (パス), Gestor de tareas 
+Pasu (パス), Gestor de tareas 
