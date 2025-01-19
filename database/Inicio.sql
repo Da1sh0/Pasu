@@ -15,3 +15,6 @@ CREATE TABLE Personas (
 )
 
 Select * from Personas
+SELECT * FROM Personas WHERE usuario = 'diego123'
+update Personas set contrasena = '12345' where id_persona = 104
+delete Personas where id_persona in (105, 106)

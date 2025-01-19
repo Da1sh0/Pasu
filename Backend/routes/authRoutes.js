@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const sql = require('mssql');
+const dbConfig = require('../server');
 // Simulación de una base de datos de usuarios
 const usuarios = [
   { id: 1, usuario: 'admin', contrasena: '1234' },
@@ -9,19 +10,29 @@ const usuarios = [
 ];
 
 // Ruta de inicio de sesión (POST)
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
     const { usuario, contrasena } = req.body;
     // Buscar el usuario en la "base de datos"
-    const usuarioEncontrado = usuarios.find(
-        (u) => u.usuario === usuario && u.contrasena === contrasena
-    );
-
-    if (usuarioEncontrado) {
-        // Si el usuario y la contraseña coinciden, respuesta exitosa
-        return res.status(200).json({ message: 'Login exitoso' });
-    } else {
-        // Si las credenciales son incorrectas, respuesta de error
-        return res.status(401).json({ message: 'Credenciales incorrectas' });
+    if (!usuario || !contrasena) {
+      return res.status(400).json({ message: 'Por favor, ingrese usuario y contraseña.' });
+    }
+    try {
+      // Conexión a la base de datos
+      const pool = await sql.connect(dbConfig);
+      const result = await pool.request()
+      .input('usuario', sql.VarChar, usuario)
+      .query('SELECT * FROM Personas WHERE usuario = @usuario');
+      // Comparar Usuario
+      const user = result.recordset[0];
+      if (!user) {return res.status(404).json({ message: 'Usuario no encontrado.' })};
+      // Comparar contraseñas
+      const isMatch = await bcrypt.compare(contrasena, user.contrasena);
+      if (!isMatch) {return res.status(401).json({ message: 'Contraseña incorrecta.' })};
+      // Si todo está bien, retornar una respuesta exitosa
+      res.status(200).json({ message: 'Login exitoso' });
+    } catch (error) {
+      console.error('Error en el servidor:', error);
+      res.status(500).json({ message: 'Error en el servidor.' });
     }
 });
 

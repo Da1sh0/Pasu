@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'; // Importa Link aquí
+// import volver from '../image/volver1.png';
 
 const Login = () => {
   const [formData, setFormData] = useState({ usuario: '', contrasena: '' });
@@ -41,41 +42,37 @@ const Login = () => {
   };
 
   return (
-    <div>
-        <Link to="/">
-            <button type="button">Volver a la página principal</button>
-        </Link>
-        <h2>Inicio de Sesión</h2>
-        <form onSubmit={handleSubmit}>
-            <div>
-            <label htmlFor="usuario">Usuario:</label>
-            <input
-                type="text"
-                id="usuario"
-                name="usuario"
-                value={formData.usuario}
-                onChange={handleChange}
-                required
-            />
-            </div>
-            <div>
-            <label htmlFor="contrasena">Contraseña:</label>
-            <input
-                type="password"
-                id="contrasena"
-                name="contrasena"
-                value={formData.contrasena}
-                onChange={handleChange}
-                required
-            />
-            </div>
-            {error && <p style={{ color: '#e87c6e' }}>{error}</p>} {/* Mostrar error si existe */}
-            <button type="submit">Iniciar Sesión</button>
-            <Link to="/Register">
-              <button type="button">No tengo una cuenta</button>
+    <>
+      <div className='contenedor-horizontal'>
+        <div className='circulo1'></div>
+        <div className='info1'>
+          <div className='volver'>
+            <Link to="/">
+                <button className='bt-volver' type="button"></button>
             </Link>
-        </form>
-    </div>
+          </div>
+          <h1>Inicio de Sesión</h1>
+          <form onSubmit={handleSubmit}>
+              <div className='contenedor-campo'>
+                <label htmlFor="usuario">Usuario: </label>
+                <input type="text" id="usuario" name="usuario" value={formData.usuario} onChange={handleChange} placeholder='Usuario' required/>
+              </div>
+              <div className='contenedor-campo'>
+                <label htmlFor="contrasena">Contraseña: </label>
+                <input type="password" id="contrasena" name="contrasena" value={formData.contrasena} onChange={handleChange} placeholder='Contraseña' required/>
+              </div>
+              {error && <p style={{ color: '#e87c6e' }}>{error}</p>} {/* Mostrar error si existe */}
+              <div className='botones'>
+                <button className='boton' type="submit">Iniciar Sesión</button>
+                <Link to="/Register">
+                  <button className='boton' type="button">No tengo una cuenta</button>
+                </Link>
+              </div>
+          </form>
+        </div>
+        <div className='circulo2'></div>
+      </div>
+    </>
   );
 };
 
