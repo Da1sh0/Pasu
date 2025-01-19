@@ -2,7 +2,16 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'; // Importa Link aquí
 
 const Register = () => {
-  const [formData, setFormData] = useState({ usuario: '', contrasena: '' });
+  const [formData, setFormData] = useState({
+    nombre1: '',
+    nombre2: '',
+    apellido1: '',
+    apellido2: '',
+    celular: '',
+    correo: '',
+    usuario: '',
+    contrasena: ''
+});
   const [error, setError] = useState('');
   const navigate = useNavigate(); // Redirección al inicio de sesión
 
@@ -27,13 +36,12 @@ const Register = () => {
       const data = await response.json();
 
       if (response.ok) {
-        alert('Inicio de sesión exitoso');
-        // Aquí puedes guardar el token si lo recibes
-        localStorage.setItem('authToken', data.token); // Ejemplo de guardado de token
-        navigate('/dashboard'); // Redirige a una página de inicio (puedes cambiarla)
+        alert('Usuario registrado exitosamente');
+        navigate('/Login'); // Redirige a la página de inicio de sesión
       } else {
-        setError(data.message || 'Error en el inicio de sesión');
+        setError(data.message || 'Error en el registro');
       }
+    
     } catch (error) {
       console.error('Error:', error);
       setError('Error al conectar con el servidor');
@@ -72,7 +80,7 @@ const Register = () => {
               <input type="password" id="contrasena" name="contrasena" value={formData.contrasena} onChange={handleChange} required/>
             </div>
             {error && <p style={{ color: '#e87c6e' }}>{error}</p>} {/* Mostrar error si existe */}
-            <button type="submit">Iniciar Sesión</button>
+            <button type="submit">Registrarse</button>
         </form>
         <Link to="/login">
             <button type="button">ya tengo una cuenta</button>

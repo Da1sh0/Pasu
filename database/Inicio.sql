@@ -13,3 +13,5 @@ CREATE TABLE Personas (
     usuario VARCHAR(50) NOT NULL UNIQUE,
     contrasena VARCHAR(255) NOT NULL
 )
+
+Select * from Personas

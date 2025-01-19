@@ -71,6 +71,9 @@ const Login = () => {
             </div>
             {error && <p style={{ color: '#e87c6e' }}>{error}</p>} {/* Mostrar error si existe */}
             <button type="submit">Iniciar Sesión</button>
+            <Link to="/Register">
+              <button type="button">No tengo una cuenta</button>
+            </Link>
         </form>
     </div>
   );
