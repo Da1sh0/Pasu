@@ -1,0 +1,16 @@
+:root {
+    --bordes: #d1c6b1;
+    --acento: #b59b82;
+    --enfasis: #e87c6e;
+    --texto-principal: #333333;
+    --texto-secundario: #545454;
+    --fondo-general: #f7f7f7;
+    --principal: #e0c7b3;
+}
+
+*{
+    background-color: var(--fondo-general);
+    font-family: 'Comic Sans MS', cursive;
+    margin: 0;
+    padding: 0;
+}
